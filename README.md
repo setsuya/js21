@@ -1,6 +1,6 @@
 # js21
 
-**The project is being hosted [here](https://setsuya.github.io/world_ham) using *GitHub Pages*.**
+**The project is being hosted [here](https://setsuya.github.io/js21/) using *GitHub Pages*.**
 
 ### About
 
