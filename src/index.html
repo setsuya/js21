@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>js21 :: Blackjack</title>
+        <meta charset="utf-8">
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="js21 - Blackjack" />
+        <meta property="og:url" content="https://setsuya.github.io/js21/" />
+        <link rel="icon" type="image/png" href="img/icon.png" />
+        <link rel="manifest" href="manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Righteous">
+        <link rel="stylesheet" href="css/icofont.min.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="js/cards.js"></script>
+        <script src="js/scripts.js"></script>
+    </head>
+    <body onkeyup="game.checkAccelerator(event)">
+        <div id="main">
+            <playfield>
+                <field id="dealer">
+                    <cards></cards>
+                    <totals>
+                        <value><span>0</span></value>
+                    </totals>
+                    <hud>
+                        <money><icon class="icofont icofont-bill-alt"></icon>&nbsp;$<span>100.00</span>&nbsp;<changes></changes></money>
+                        <bet><icon class="icofont icofont-life-buoy"></icon>&nbsp;$<span>0.00</span></bet>
+                        <deck><icon class="icofont icofont-penalty-card"></icon>&nbsp;&times;&nbsp;<span>0</span></deck>
+                    </hud>
+                </field>
+                <field id="player">
+                    <hud>
+                        <options></options>
+                    </hud>
+                    <totals>
+                        <value><span>0</span></value>
+                    </totals>
+                    <cards></cards>
+                </field>
+            </playfield>
+        </div>
+        <div id="menu-icon" onclick="game.showSaveData(); toggleMenu()"><line></line><line></line><line></line><line></line><line></line></div>
+        <overlay>
+            <options-menu>
+                <div>
+                    <p><b>STATS</b></p>
+                    <stats></stats>
+                    <button onclick="game.showConfirm()">Erase save</button><button onclick="toggleMenu()">Close</button>
+                </div>
+            </options-menu>
+        </overlay>
+    </body>
+</html>
