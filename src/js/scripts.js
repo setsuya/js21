@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(){
+    if("serviceWorker" in navigator){
+        navigator.serviceWorker.register("service_worker.js");
+    }
+
     game = new blackjackGame();
 
     if(!game.saveGame("check")){
@@ -14,6 +18,125 @@ function toggleMenu(){
     let overlay_element = document.getElementsByTagName("overlay")[0];
 
     overlay_element.classList.toggle("show");
+}
+
+function checkAccelerator(key){
+    let button_element;
+
+    switch(key.code){
+        case "KeyB":
+            button_element = document.getElementById("bet-button");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "KeyR":
+            button_element = document.getElementById("bet-return-button");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "KeyH":
+            button_element = document.getElementById("hit-button");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "KeyN":
+            button_element = document.getElementById("next-button");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "KeyS":
+            button_element = document.getElementById("stand-button");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "KeyD":
+            button_element = document.getElementById("double-down-button");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "KeyO":
+            button_element = document.getElementById("pass-button");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "KeyM":
+            button_element = document.getElementById("menu-icon");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "Digit1":
+            button_element = document.getElementById("bet-button-5");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "Digit2":
+            button_element = document.getElementById("bet-button-10");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "Digit3":
+            button_element = document.getElementById("bet-button-20");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "Digit4":
+            button_element = document.getElementById("bet-button-50");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "Digit5":
+            button_element = document.getElementById("bet-button-100");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+        case "KeyC":
+            button_element = document.getElementById("bet-button-custom");
+
+            if(!key.altKey && !key.metaKey && button_element){
+                button_element.click();
+            }
+
+            break;
+    }
 }
 
 function printCard(card){
@@ -125,18 +248,6 @@ function printCard(card){
     return finished_card;
 }
 
-function listAllCards(){
-    let all_cards = "";
-
-    cards.forEach((card) => {
-        let finished_card = printCard(card);
-
-        all_cards += finished_card;
-    });
-
-    document.getElementById("main").innerHTML = all_cards;
-}
-
 function blackjackGame(){
     let game_info = {
         "money": 100, 
@@ -147,16 +258,17 @@ function blackjackGame(){
     };
     let panels = {
         "waiting": `<span class="waiting-dice"><icon class="icofont icofont-dice"></icon> <icon class="icofont icofont-dice"></icon> <icon class="icofont icofont-dice"></icon> <icon class="icofont icofont-dice"></icon> <icon class="icofont icofont-dice"></icon></span>`, 
-        "results": `<button id="next-button" onclick="game.clearTable()">Next hand</button>`, 
-        "bet": `<input type="number" min="5" placeholder="$5 minimum bet" value="5" tabindex="1" /><button id="bet-button" onclick="game.checkBet(this)">Bet</button>`, 
-        "play": `<button id="hit-button" class="continue-button" onclick="game.dealCard([{'person': 'player', 'show': true}])">Hit</button><button id="stand-button" class="stop-button" onclick="game.dealerLoop()">Stand</button>`, 
-        "double_down": `<button id="double-down-button" onclick="game.doubleDown()">Double down</button><button id="pass-button" onclick="game.changeHUD('play')">Continue</button>`, 
-        "debug": `<button onclick="game.startGame()">Start</button><button onclick="game.clearTable()">Clear</button><button onclick="game.dealCard([{'person': 'player', 'show': true}])">Deal[player]</button><button onclick="game.dealCard([{'person': 'dealer', 'show': true}])">Deal[dealer]</button><button onclick="game.turnCard('dealer')">Turn card[dealer]</button><button onclick="game.countTotal('player')">Count[player]</button><button onclick="game.countTotal('dealer')">Count[dealer]</button>`
+        "results": `<button id="next-button" onclick="game.clearTable()"><span class="accelerator-key">N</span>Next hand</button>`, 
+        "bet": `<button id="bet-button-5" onclick="game.checkBet(5)"><span class="accelerator-key">1</span>$5</button><button id="bet-button-10" onclick="game.checkBet(10)"><span class="accelerator-key">2</span>$10</button><button id="bet-button-20" onclick="game.checkBet(20)"><span class="accelerator-key">3</span>$20</button><button id="bet-button-50" onclick="game.checkBet(50)"><span class="accelerator-key">4</span>$50</button><button id="bet-button-100" onclick="game.checkBet(100)"><span class="accelerator-key">5</span>$100</button><button id="bet-button-custom" onclick="game.changeHUD('custom_bet')"><span class="accelerator-key">C</span>Custom</button>`, 
+        "custom_bet": `<input type="number" min="5" placeholder="$5 minimum bet" tabindex="1" /><button id="bet-button" onclick="game.checkBet(this.previousElementSibling.value)"><span class="accelerator-key">B</span>Bet</button><button id="bet-return-button" onclick="game.changeHUD('bet')"><span class="accelerator-key">R</span>Return</button>`, 
+        "play": `<button id="hit-button" class="continue-button" onclick="game.dealCard([{'person': 'player', 'show': true}])"><span class="accelerator-key">H</span>Hit</button><button id="stand-button" class="stop-button" onclick="game.dealerLoop()"><span class="accelerator-key">S</span>Stand</button>`, 
+        "double_down": `<button id="double-down-button" onclick="game.doubleDown()"><span class="accelerator-key">D</span>Double down</button><button id="pass-button" onclick="game.changeHUD('play')"><span class="accelerator-key">O</span>Continue</button>`
     }
     let available_cards = Array();
     let dealer_total = 0;
     let player_total = 0;
     let bet_money = 0;
+    let double_down = false;
 
     this.saveGame = function saveGame(action){
         function check(){
@@ -301,6 +413,8 @@ function blackjackGame(){
 
         this.countTotal("dealer");
         this.countTotal("player");
+        
+        double_down = false;
 
         this.checkDeck();
     }
@@ -374,7 +488,7 @@ function blackjackGame(){
     }
 
     this.checkBet = function checkBet(value){
-        let bet = parseFloat(value.previousElementSibling.value);
+        let bet = parseFloat(value);
 
         if(!isNaN(bet) && bet >= 5){
             this.updateGameInfo({"money": parseFloat(game_info.money - bet)});
@@ -393,6 +507,7 @@ function blackjackGame(){
         this.showChangeMoney("take", bet_money.toFixed(2));
 
         bet_money += bet_money;
+        double_down = true;
 
         this.dealCard([{"person": "player", "show": false}]);
     }
@@ -525,6 +640,10 @@ function blackjackGame(){
                 }
             }
 
+            if(double_down){
+                total_pay = total_pay * 1.5;
+            }
+
             update_obj.money = parseFloat(game_info.money + total_pay);
             update_obj.blackjacks = game_info.blackjacks + 1;
         }else if(player_total < 21){
@@ -542,6 +661,10 @@ function blackjackGame(){
                 update_obj.hands_draw = game_info.hands_draw + 1;
             }else{
                 this.showResults("WIN", "LOSE");
+            }
+
+            if(double_down){
+                total_pay = total_pay * 1.5;
             }
 
             update_obj.money = parseFloat(game_info.money + total_pay);
@@ -597,61 +720,6 @@ function blackjackGame(){
             this.changeHUD("double_down");
         }else{
             this.changeHUD("play");
-        }
-    }
-
-    this.checkAccelerator = function checkAccelerator(key){
-        let button_element;
-
-        switch(key.code){
-            case "KeyB":
-                button_element = document.getElementById("bet-button");
-
-                if(!key.altKey && !key.metaKey && button_element){
-                    button_element.click();
-                }
-
-                break;
-            case "KeyH":
-                button_element = document.getElementById("hit-button");
-
-                if(!key.altKey && !key.metaKey && button_element){
-                    button_element.click();
-                }
-
-                break;
-            case "KeyN":
-                button_element = document.getElementById("next-button");
-
-                if(!key.altKey && !key.metaKey && button_element){
-                    button_element.click();
-                }
-
-                break;
-            case "KeyS":
-                button_element = document.getElementById("stand-button");
-
-                if(!key.altKey && !key.metaKey && button_element){
-                    button_element.click();
-                }
-
-                break;
-            case "KeyD":
-                button_element = document.getElementById("double-down-button");
-
-                if(!key.altKey && !key.metaKey && button_element){
-                    button_element.click();
-                }
-
-                break;
-            case "KeyC":
-                button_element = document.getElementById("pass-button");
-
-                if(!key.altKey && !key.metaKey && button_element){
-                    button_element.click();
-                }
-
-                break;
         }
     }
 

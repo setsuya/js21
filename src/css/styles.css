@@ -146,10 +146,23 @@ options button:active{
     border: 0;
 }
 
+options button *{
+    vertical-align: middle;
+}
+
+.accelerator-key{
+    display: none;
+}
+
 @media (min-width: 576px){
-    options button::first-letter{
-        text-decoration: underline;
-        font-style: italic;
+    .accelerator-key{
+        display: inline-block;
+        padding: 2px 5px;
+        margin: 0 5px 0 0;
+        border-radius: 2px;
+        box-shadow: 1px 1px 0 #333 inset;
+        background-color: rgba(128, 128, 128, 0.3);
+        font: 10px monospace;
     }
 }
 
